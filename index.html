@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Picnic, the decentralized future of publishing, discovery and curation built by 0xCreator DAO">
+  <meta name="keywords"
+    content="picnic,web3,0xCreator DAO,decentralized,content write,publishing,discover,curation,write to earn">
+  <title>Picnic</title>
+  <link rel="stylesheet" href="index.css">
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <script type="module">
+    import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.2.3/ethers.min.js"
+    const connectButton = document.getElementById("wallet")
+
+    //show address if already connected
+    if (connectButton) {
+      connectButton.addEventListener("click", async () => {
+        if (window.ethereum) {
+          try {
+            const accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
+
+            const address = accounts[0]
+            const web3Provider = new ethers.BrowserProvider(window.ethereum)
+
+            if (address) {
+              connectButton.innerText = address.slice(0, 6) + '...' + address.slice(-4)
+            }
+            console.log("wallet connect:", web3Provider)
+
+          } catch (err) {
+            console.error("connect error:", err)
+          }
+        } else {
+          console.error("no meatamask found")
+        }
+      })
+      //listen to account change
+      window.ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length === 0) {
+          connectButton.innerText = 'Connect Wallet'
+        } else {
+          const address = accounts[0]
+          connectButton.innerText = address.slice(0, 6) + '...' + address.slice(-4)
+        }
+      })
+    }
+  </script>
+</head>
+
+<body id="container">
+  <header class="pc">
+    <a href="#">
+      <img class='logo' src="./assets/logo.png" alt="logo">
+    </a>
+
+    <nav>
+      <ul>
+        <li><a href="#">All Posts</a></li>
+        <li><a href="#">Curate</a></li>
+        <li><a href="#">Write</a></li>
+        <li><a href="#">My Profiles</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-buttons">
+      <button class="light-dark-model" id="toggle-theme-btn">
+        <img src="./assets/dark.png" alt="light-dark-model">
+      </button>
+      <button class="wallet" id="wallet">Connect Wallet</button>
+    </div>
+  </header>
+
+  <header class="mob">
+    <a href="#">
+      <img class='logo' src="./assets/logo.png" alt="logo">
+    </a>
+
+    <div class="menu-content">
+      <button class="btn-menu">
+        menu
+      </button>
+      <div class="nav">
+        <nav>
+          <ul class="menu">
+            <li><a href="#">All Posts</a></li>
+            <li><a href="#">Curate</a></li>
+            <li><a href="#">Write</a></li>
+            <li><a href="#">My Profiles</a></li>
+            <button class="wallet">Connect Wallet</button>
+          </ul>
+
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="top-content">
+      <div class="introduction">
+        <div class="slogan">For great stories</div>
+        <p>The decentralized future of publishing, discovery and <br>curation</p>
+        <button class="write">Write</button>
+      </div>
+      <div class="poster">
+        <img src="./assets/poster1.png" alt="poster1">
+      </div>
+    </div>
+
+    <div class="mid-content">
+      <div class="title">
+        <span class="large-title">Highlights</span>
+        <span class="small-title">The most curated stories </span>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+
+    <div class="pictures">
+      <div class="pc-one">
+        <div class="image">
+          <img src="./assets/pc1.png" alt="pc1">
+          <div class="arrow-tag">
+            <img class='arrow' src="./assets/arrow.png" alt="arrow">
+          </div>
+          <span class="sold-number">25 Copies Sold</span>
+        </div>
+        <span class="pic-category">· Tech and business</span>
+        <p>How Technocrats <br>Triumphed at Apple</p>
+      </div>
+
+      <div class="pc-two">
+        <div class="image">
+          <img src="./assets/pc2.png" alt="pc2">
+          <p>Francis Fukuyama Postpones <br>
+            the End of History</p>
+          <div class="arrow-tag">
+            <img src="./assets/arrow.png" alt="arrow">
+          </div>
+          <span class="sold-number-pc2">25 Copies Sold</span>
+          <div class="shadow-block"></div>
+        </div>
+        <div class="pic-category">
+          <span>· Politics and History</span>
+        </div>
+        <div class="date">
+          <span>May 18, 2023</span>
+        </div>
+      </div>
+
+
+
+      <div class="pc-three">
+        <div class="image">
+          <img src="./assets/pc3.png" alt="pc3">
+          <span class="sold-number-pc3">25 Copies Sold</span>
+        </div>
+        <span class="pic-category">· Tech and business</span>
+        <p>How Technocrats <br>Triumphed at Apple</p>
+
+      </div>
+    </div>
+
+    <div class="try-picnic">
+      <div class="title">
+        <span class="large-title">Try Picnic</span>
+        <br>
+        <span class="small-title">Write, discover and curate.</span>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn-1">Write</button>
+      <button class="btn-2">discover</button>
+      <div class="btn-3">
+        <p class="sentence">Share stories you love, help creators grow their audience, and get a cut from the
+          transaction proceeds. Traditional centralized distribution methods, such as algorithmic feeds, are
+          ill-fitted for discovering niche content. At the same time, existing curation platforms fail to reward
+          curators who contributed much of the value to the content ecosystems. Therefore, we built Picnic
+          predicated
+          on tailored economic systems that reward curators.</p>
+      </div>
+    </div>
+
+    <div class="about">
+      <div class="title">
+        <span class="large-title">About Us</span>
+        <br>
+        <span class="small-title">By creators, for creators.</span>
+      </div>
+
+      <div class="about-content">
+        <div class="about-left">
+          <h2>Picnic is built by 0xCreator DAO.</h2>
+          <p> We firmly believe in the potential of Web3 as an enabler of new economic systems that serve sovereign
+            creators and curators of high-quality <br>
+            content.
+            <br>
+            <br>
+            Picnic is built, not just as a tool, but also as the starting point of a foundational infrastructure for
+            social-based, decentralized content curation.
+          </p>
+          <button>Our Vision</button>
+        </div>
+
+        <div class="about-right">
+          <img class='about-right-img' src="./assets/about-right.png" alt="about-right">
+          <img class='metaverse' src="./assets/metaverse.png" alt="metaverse">
+          <div class="rectangle"></div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <footer>
+      <hr>
+      <p>
+        About | Privacy Policy | Terms of Service <br>
+        © 2022 0xCreator DAO <br>
+        All rights reserved
+      </p>
+    </footer>
+  </main>
+
+</body>
+
+<script src="./themeChange.js"></script>
+
+
+
+</html>
